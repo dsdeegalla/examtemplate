@@ -1,0 +1,363 @@
+\documentclass[10pt,addpoints,a4paper]{exam}
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric, arrows}
+\usepackage{listings}  % code listings
+\usepackage{caption} % remove word `table' table caption
+\captionsetup{labelformat=empty} % remove word `table' table caption
+\usepackage{pgf,tikz}
+\usetikzlibrary{shapes,arrows}
+\usetikzlibrary{shapes.gates.logic.US}
+\usepackage[RPvoltages]{circuitikz}
+\usepackage{multirow}
+\usepackage{float} %force figures to same place use H
+
+\title{UNIVERSITY OF PERADENIYA}
+\author{Faculty of Engineering}
+\date{END OF SEMESTER EXAMINATION, JUNE 2022}
+
+
+\renewcommand{\thechoice}{(\arabic{choice})}
+\renewcommand{\thepartno}{\roman{partno}}
+\renewcommand{\thesubpart}{\alph{subpart}}
+
+\renewcommand{\subpartlabel}{(\thesubpart)}
+
+%\raisebox{.5pt}{\textcircled{\raisebox{-.9pt} {8}}} % solution to cricle character
+
+% Print for the book
+\tikzstyle{startstop} = [rectangle, rounded corners=15pt, minimum width=3cm, minimum height=1cm,text centered, draw=black, very thick]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, very thick]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, very thick]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, very thick]
+\tikzstyle{arrow} = [very thick,->,>=stealth]
+
+
+% printing answers
+%\printanswers
+\noprintanswers
+
+\begin{document}
+
+\maketitle
+\lstset{language=Pascal} 
+%\section*{Paper I}
+%\begin{questions}
+%\question One of the first electronic computers is known as ENIAC. What is the basic electronic component used to build this computer?
+%\begin{choices}
+%\choice Transistors
+%\choice IC
+%\CorrectChoice Vacuum tubes
+%\choice Microprocessors
+%\end{choices}
+%\end{questions}
+
+%\section*{Paper II}
+\begin{center}
+%\fbox{%
+%\fbox{%
+\parbox{5.5in}{\centering
+CO 527 ADVANCED DATABASE SYSTEMS
+\vskip\baselineskip
+(Three Hours)\\
+(Answer all questions. All questions carry equal marks.)
+}
+%}
+%}
+\end{center}
+
+\par\noindent\rule{\textwidth}{0.4pt}
+
+%\fullwidth{\Large \textbf{Optional Questions}}
+%\vskip0.5\baselineskip
+\fullwidth{This paper contains two subsections: Part A and Part B. Write Part A and Part B in separate answer books. The answer books will be collected separately.}\vskip0.25\baselineskip
+\fullwidth{%
+\fbox{%
+\makebox[\dimexpr\textwidth-2\fboxsep-0.79999pt\relax]{%
+\rule{0pt}{1cm}\Large%
+\newlength{\word}
+\settoheight{\word}{\Large\textbf{Part A}}
+\raisebox{\dimexpr1cm-2\word\relax}{\textbf{Part A}}}}}
+\vskip\baselineskip
+%\begingradingrange{OptionalPartA}
+
+
+\begin{questions}
+\question \textbf{Recoverability and Serializability}
+\begin{parts}
+
+\part In a multiuser system, many transactions in a Schedule can be interleaved to get the optimal use of processing. Discuss the correctness of such schedules with regard to Serial and Non-Serial orders.	
+\begin{flushright}	(14 Marks)\end{flushright}
+
+\part The following three transactions T1, T2 and T3 with three variables X, Y and Z are to be executed in a multi-user environment.
+
+\begin{itemize}
+\item[T1:] R1(X), R1(Z), W1(X)
+\item[T2:] R2(Z), R2(Y), W2(Z), W2(Y)
+\item[T3:] R3(X), R2(Y), W3(Y)
+\end{itemize}
+
+The following two schedules S1 and S2 are two possible schedules for interleaving.\\
+
+\begin{itemize}
+\item[S1:] 
+R1(X), R2(Z), R1(Z), R3(X), R3(Y), W1(X), W3(Y), R2(Y), W2(Z), W2(Y)
+\item[S2:] 
+R1(X), R2(Z), R3(X), R1(Z), R2(Y), R3(Y), W1(X), W2(Z), W3(Y), W2(Y)
+\end{itemize}
+
+Determine the serializability of each of the schedules by drawing the corresponding precedence graph and draw the equal serial schedule if they are serializable.								\begin{flushright}	(36 Marks)\end{flushright}
+
+\part What is meant by Recoverability, and what is the importance of it ? \begin{flushright}	(14 Marks)\end{flushright}
+
+\part Identity whether each of the following schedules is Strict, Cascadeless, Recoverable or Unrecoverable.					\begin{flushright}	(36 Marks)\end{flushright}
+
+\begin{itemize}
+\item[S3:] 
+R1(X), R2(Z), R1(Z), R3(X), R3(Y), W1(X), C1, W3(Y), C3, R2(Y, W2(Z), W2(Y), C2
+
+\item[S4:]
+R1(X), R2(Z), R1(Z), R3(X), R3(Y), W1(X), W3(Y), R2(Y), W2(Z), W2(Y), C1, C2, C3
+
+\item[S5:]
+R1(X), R2(Z), R3(X), R1(Z), R2(Y), R3(Y), W1(X), C1, W2(Z), W3(Y), W2(Y), C3, C2
+\end{itemize}
+\end{parts}
+
+\question \textbf{Locking Techniques and Recovery Techniques}
+\begin{parts}
+\part What is meant by “Two Phase Locking” ?
+\begin{flushright}	(10 Marks)\end{flushright}
+\part If a schedule follows the Two Phase Locking protocol,it is serializable. The following schedule is not serializable according to the protocol. Prove that it is so by taking X=20 and Y=30 as initial values in the following schedule and comparing it with the corresponding serial schedule.
+\begin{flushright}	(30 Marks)\end{flushright}		
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.35\textwidth]{images/q2b.png}
+\end{figure}
+
+\part Briefly describe the three updating methods Immediate, Deferred and Shadow Paging.								\begin{flushright}	(20 Marks)\end{flushright}
+\part The Deferred Update scheme maintains two tables - Active and Commit. Briefly describe what they are and how Redo/ Undo applies to them.
+\begin{flushright}	(20 Marks)\end{flushright}	
+\part The following diagram depicts a situation under Shadow Paging.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\textwidth]{images/q2v.png}
+    %\caption{An image of a galaxy}
+    \label{fig:galaxy}
+\end{figure}
+%\includegraphics[width=0.5\textwidth]{images/q2v.png}
+
+Draw the resultant state in case of a failure and no failure.		\begin{flushright}	(20 Marks)\end{flushright}
+\end{parts}
+
+\question \textbf{Database Security}
+\begin{parts}
+\part Differentiate between database security and database integrity\begin{flushright}	(10 Marks)\end{flushright}	
+\part Database security involves measures to avoid loss of privacy and loss of confidentiality. Explain what is meant by the above terms.\begin{flushright}	(20 Marks)\end{flushright}	
+\part In the context of database security explain how the following database features help to enforce security in the database system:\begin{flushright}	(3 $\times$ 10 Marks)\end{flushright}
+\begin{subparts} 
+\subpart Authorisation	
+\subpart Access Control
+\subpart Views
+\end{subparts}
+
+\part Differentiate between a Discretionary Access Control and a Mandatory Access Control. Which one is more rigid to the modification of the privilege assigned to users? \begin{flushright}	(20 Marks)\end{flushright}	
+\part Assuming that the following view exist in your database schema:
+\begin{verbatim} 
+CREATE VIEW View1 AS 
+SELECT S_id, S_name, Status, City 
+FROM Suppliers WHERE City = ‘Paris’ 
+\end{verbatim}
+Write an appropriate SQL Code to give access rights to two users Amal and Kamal so that they can Insert, Update, Delete and Retrieve all the data in the above view. Put a control so that both Amal and Kamal can only update the supplier name and the status of the suppliers.\begin{flushright}	(20 Marks)\end{flushright}	
+\end{parts}
+
+
+\fullwidth{%
+\fbox{%
+\makebox[\dimexpr\textwidth-2\fboxsep-0.79999pt\relax]{%
+\rule{0pt}{1cm}\Large%
+%\newlength{\word}
+\settoheight{\word}{\Large\textbf{Part B}}
+\raisebox{\dimexpr1cm-2\word\relax}{\textbf{Part B}}}}}
+\vskip\baselineskip
+
+\question \textbf{Query Optimization and Database Tuning}
+
+
+Consider the following relations and the query based on the relations.
+
+
+\begin{itemize}
+\item[] Relations:
+\begin{itemize}
+\item[] EMPLOYEE (FNAME, LNAME, \underline{EMPID}, ADDRESS, DNO)
+\item[] DEPARTMENT (DNAME, \underline{DNUMBER}, MGRSSN)
+\end{itemize}
+\item[] Query:
+ \begin{itemize}
+\item[]  For the `Research' department, list the department number, the department manager's last name and address.
+\end{itemize}
+\end{itemize}
+
+
+\begin{parts}
+%may 2022
+\part Write the given query in SQL.
+\begin{flushright}	(10 Marks)\end{flushright}
+\begin{solution}
+\begin{itemize}
+\item[] \begin{verbatim}
+select DNO, LNAME, ADDRESS
+from EMPLOYEE, DEPARTMENT
+where SSN = MGRSSN and DNAME='Research'; 
+\end{verbatim}
+\end{itemize}
+\end{solution}
+\part Translate the SQL query into relational algebra expression.
+\begin{flushright}	(10 Marks)\end{flushright}
+\begin{solution}
+ \begin{itemize}
+\item[] $\pi_{DNO, LNAME, ADDRESS}\left(\sigma_{\mbox{SSN = MGRSSN and DNAME='Research'}}\left(EMP \times DEPT\right)\right)$
+\end{itemize}
+\end{solution} 
+\part What is a query tree? Draw an initial query tree to represent the query given above.
+\begin{flushright}	(20 Marks)\end{flushright}
+\begin{solution}
+The query tree includes the relational algebra operations being executed and is used as a possible data structure for the internal representation of the query in an RDBMS.
+\end{solution}	
+\part Discuss the main heuristics that are applied during query optimization.
+\begin{flushright}	(20 Marks)\end{flushright}	
+\begin{solution}
+\begin{enumerate}
+\item apply first the operations that reduce the size of intermediate results. 
+\item Perform select operations as early as possible to reduce the number of tuples and perform project operations as early as possible to reduce the number of attributes. (This is done by moving select and project operations as far down the tree as possible.)
+\item The select and join operations that are most restrictive should be executed before other similar operations. (This is done by reordering the leaf nodes of the tree among themselves and adjusting the rest of the tree appropriately.)  
+\end{enumerate}
+\end{solution}
+
+\part Show how the initial query tree is optimized based on the heuristics
+mentioned in (4. iv) and find a final query tree that is efficient to execute.
+Briefly explain the steps.
+\begin{flushright}	(30 Marks)\end{flushright}	
+\begin{solution}
+Steps:
+\begin{enumerate}
+\item Send select (DNAME) as down as possible
+\item Send project operations (DNO,LNAME,ADDRESS) down query tree as much as possible
+\item Apply more restrictive select operations first (e.g. DNAME=”Research” assumes to be less instances)
+\item Replace cartecian products with select by join operations
+\item Select only attributes needed for join and final set of attributes.
+\end{enumerate}
+\end{solution}
+
+\part Why is database tuning an important step in database application development? 				\begin{flushright}	(10 Marks)\end{flushright}	
+\begin{solution}
+ \begin{itemize}
+\item To make application run faster
+\item To lower the response time of queries/transactions
+\item To improve the overall throughput of transactions
+\end{itemize}
+\end{solution}
+\end{parts}
+
+
+\question \textbf{Distributed Database Systems and Object Databases}
+\begin{parts}
+%end jun 2022
+\part Discuss advantages of distributed database systems over centralized database systems.		\begin{flushright}	(20 Marks)\end{flushright}	
+\begin{solution}
+ \begin{itemize}
+\item Management of distributed data with different levels of transparency
+\item Distribution and Network transparency
+\item Replication transparency
+\item Fragmentation transparency
+\item Increased reliability and availability
+\item Improved performance
+\item Easier expansion (scalability)
+\end{itemize} 
+\end{solution}
+\part Discuss when a fully replicated distributed database design is preferred over a partially replicated one. What are the disadvantages of this design?
+\begin{flushright}	(20 Marks)\end{flushright}	
+\begin{solution}
+When a large number of quries is requred and the number of database updates are low.
+Since eash site has its own copy of all the database tables, queries are very fast and require negligible communication cost.
+The disadvantage is redundancy of massive data requires huge cost for update operations.
+\end{solution}
+\part What are the challenges in handling transactions in distributed database
+systems?
+\begin{flushright}	(20 Marks)\end{flushright}	 
+\begin{solution}
+In distributed database systems, a transaction may update data on two or more systems. It is challenging to handle machine, software, \& network failures while preserving transaction integrity.
+\end{solution}
+\part Explain how the three-phase commit protocol handles the issues of the two-phase commit protocol.
+\begin{flushright}	(20 Marks)\end{flushright}	
+\begin{solution}
+ \begin{itemize}
+\item two-phase commit protocol is a blocking protocol: a) if the coordinator crashes, participants have no idea whether to commit or abort b) A non-responding participant will also result in blocking
+\item In two-phase commit protocol, When a participant gets a commit/abort message, it does not know if every other participant was informed of the result
+\item In 3PC, Same setup as the two-phase commit protocol, i.e., Coordinator \& Participants
+\item Add timeouts to each phase that result in an abort
+\item Propagate the result of the commit/abort vote to each participant before telling them to act on it
+\item This will allow us to recover the state if any participant dies
+\end{itemize}
+\end{solution}
+\part Explain why object databases may be suitable for modelling complex database applications such as Geographical Information Systems (GIS) compared to relational databases.
+\begin{flushright}	(20 Marks)\end{flushright}	
+\begin{solution}
+\begin{itemize}
+\item supports complext data types
+\item set-value attributes such as sets and lists
+\item supports inheritance
+\item supports complex objects
+\item no impedance mismatch with the host language such as C or Java
+\end{itemize}
+\end{solution}
+\end{parts}
+
+\question \textbf{Big Data}
+\begin{parts}
+%end jun 2022
+\part List three big data applications in education. Then, briefly explain how big data technologies are used in the listed applications.
+\begin{flushright}	(30 Marks)\end{flushright}
+\begin{solution}
+Education institues mainly deal with student data. Thousands of students enrol in several institutes every year in a variety of courses, huge amount of data is generated. The student data consists of course details, enrollment year, student ID, exam grades, marks obtained in individual subjects and choice of courses.
+\begin{itemize}
+\item Enhancing Student Results: Identify behaviour and perfromance of students. with big data one can identify response time for exam questions, choice of resource for education, question they skip and answered
+\item Better grading system
+\end{itemize}
+\end{solution}
+\part Describe the characteristic Variety in big data.
+\begin{flushright}	(20 Marks)\end{flushright}
+\begin{solution}
+clickstream and social media, research data, location, images, e-mails, supply chain data, signal data, and videos. Big data includes structured, semi-structured, and unstructured data.
+\end{solution}
+\part List the components of the Hadoop ecosystem with a brief description.
+\begin{flushright}	(30 Marks)\end{flushright}
+\begin{solution}
+Hadoop Ecosystem provides various services to solve the big data problems. It includes Apache projects and various commercial tools and solutions. There are four major elements of Hadoop i.e. HDFS, MapReduce, YARN, and Hadoop Common. 
+
+The components of Hadoop ecosystem includes the following: 
+\begin{itemize}
+\item HDFS: Hadoop Distributed File System
+\item YARN: Yet Another Resource Negotiator
+\item MapReduce: Programming based Data Processing
+\item Spark: In-Memory data processing
+\item PIG, HIVE: Query based processing of data services
+\item HBase: NoSQL Database
+\item Mahout, Spark MLLib: Machine Learning algorithm libraries
+\item Solar, Lucene: Searching and Indexing
+\item Zookeeper: Managing cluster
+\item Oozie: Job Scheduling
+\end{itemize} 
+\end{solution}	
+\part Justify your choice of deploying the Hadoop system in the cloud or in-house servers.
+\begin{flushright}	(20 Marks)\end{flushright}	
+\begin{solution}
+There are key differences in user experience, implementation time and cost in the two choices.
+Consier clould if Hadoop system has outgrown, needs replacement for in-house servers or deployment is needed in different locations.
+\end{solution}
+\end{parts}
+
+\end{questions}
+\end{document}
